@@ -1,4 +1,55 @@
-from korean_letter_separator import *
+
+def korean_letter_to_codepoint(korean_letter):
+    codepoint = ord(korean_letter) - 0xAC00
+    if codepoint < 0 or codepoint > 11172:
+        return None
+    else:
+        return codepoint
+
+def decompose_korean_letter(korean_letter):
+    codepoint = korean_letter_to_codepoint(korean_letter)
+    if codepoint is None:
+        return None, None, None
+    else:
+        jaum = codepoint // (21 * 28)
+        moum = (codepoint - jaum * 21 * 28) // 28
+        patchim = codepoint - jaum * 21 * 28 - moum * 28
+        return jaum, moum, patchim
+
+def compose_korean_letter(jaum:int, moum:int, patchim:int):
+    codepoint = jaum * 21 * 28 + moum * 28 + patchim + 0xAC00
+    return chr(codepoint)
+
+def is_korean_letter(korean_letter):
+    codepoint = korean_letter_to_codepoint(korean_letter)
+    if codepoint is None:
+        return False
+    else:
+        return True
+
+jaum_list = [
+    'ㄱ', 'ㄲ', 'ㄴ', 'ㄷ', 'ㄸ',
+    'ㄹ', 'ㅁ', 'ㅂ', 'ㅃ', 'ㅅ',
+    'ㅆ', 'ㅇ', 'ㅈ', 'ㅉ', 'ㅊ',
+    'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ'
+]
+
+moum_list = [
+    'ㅏ', 'ㅐ', 'ㅑ', 'ㅒ', 'ㅓ',
+    'ㅔ', 'ㅕ', 'ㅖ', 'ㅗ', 'ㅘ',
+    'ㅙ', 'ㅚ', 'ㅛ', 'ㅜ', 'ㅝ',
+    'ㅞ', 'ㅟ', 'ㅠ', 'ㅡ', 'ㅢ',
+    'ㅣ'
+]
+
+patchim_list = [
+    '', 'ㄱ', 'ㄲ', 'ㄳ', 'ㄴ',
+    'ㄵ', 'ㄶ', 'ㄷ', 'ㄹ', 'ㄺ',
+    'ㄻ', 'ㄼ', 'ㄽ', 'ㄾ', 'ㄿ',
+    'ㅀ', 'ㅁ', 'ㅂ', 'ㅄ', 'ㅅ',
+    'ㅆ', 'ㅇ', 'ㅈ', 'ㅊ', 'ㅋ',
+    'ㅌ', 'ㅍ', 'ㅎ'
+]
 
 VOWEL_ALPHABET_LIST={
     'ㅏ':'a',
@@ -40,7 +91,7 @@ CONSONANT_ALPHABET_LIST={
 
 
 
-def romanize(string, sign:bool=True, is_oe:bool=False):
+def romanize(string, sign:bool=True, is_oe:bool=False, hyphen:bool=False):
     vowel_alphabet=VOWEL_ALPHABET_LIST.copy()
     consonant_alphabet=CONSONANT_ALPHABET_LIST.copy()
     if not sign:
@@ -70,9 +121,11 @@ def romanize(string, sign:bool=True, is_oe:bool=False):
     for i in range(1, len(output_list)-1):
         #련음화
         if output_list[i][2] == 'ㄹ' and output_list[i+1][0] == 'ㄴ':
-            output_list[i+1][0] = 'ㄹ'
+            output_list[i][2] = 'ㄹ'
+            output_list[i+1][0] = 'ㄴ'
         if output_list[i][2] == 'ㄴ' and output_list[i+1][0] == 'ㄹ':
             output_list[i][2] = 'ㄹ'
+            output_list[i+1][0] = 'ㄴ'
 
         #받침이 다음 글자 초성으로
         if output_list[i+1][0] == 'ㅇ':
@@ -337,7 +390,7 @@ def romanize(string, sign:bool=True, is_oe:bool=False):
             elif consonant == 'p':
                 consonant = 'b'
         if output_list[i-1][2] == 'ㄹ':
-            if consonant == 'r':
+            if consonant == 'n':
                 consonant = 'l'
 
         output_string += consonant
@@ -349,6 +402,12 @@ def romanize(string, sign:bool=True, is_oe:bool=False):
             patchim = 't'
             if output_list[i+1][0] == 'ㅅ':
                 patchim = 's'
+
+        if output_list[i][2] == 'ㅇ':
+            patchim = 'ng'
+            if output_list[i+1][0] == 'ㅇ':
+                if hyphen:
+                    patchim = 'ng-'
 
         output_string += patchim
         if output_list[i][3] != None:
