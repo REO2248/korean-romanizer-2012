@@ -393,7 +393,11 @@ def romanize(string, sign:bool=True, is_oe:bool=False, hyphen:bool=False):
         if output_list[i][2] == 'ㅆ':
             output_list[i][2] = 'ㅅ'
 
-
+    for i in range(1, len(output_list)-1):
+        ##2받침 처리
+        if output_list[i][1] == 'ㅖ':
+            if not output_list[i][0] == 'ㅇ':
+                output_list[i][1] = 'ㅔ'
 
 
     output_string = ''
