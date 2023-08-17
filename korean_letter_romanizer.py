@@ -127,8 +127,64 @@ def romanize(string, sign:bool=True, is_oe:bool=False, hyphen:bool=False):
             output_list[i][2] = 'ㄹ'
             output_list[i+1][0] = 'ㄴ'
 
+            
+
+        if output_list[i+1][0] == 'ㅇ':
+            if output_list[i][2] == 'ㄷ':
+                if output_list[i+1][1] == 'ㅣ':
+                    output_list[i][2] = ''
+                    output_list[i+1][0] = 'ㅈ'
+            if output_list[i][2] == 'ㅌ':
+                if output_list[i+1][1] == 'ㅣ':
+                    output_list[i][2] = ''
+                    output_list[i+1][0] = 'ㅊ'
+
+        if output_list[i+1][0] == 'ㅎ':
+            if output_list[i][2] == 'ㄷ':
+                if output_list[i+1][1] == 'ㅣ':
+                    output_list[i][2] = ''
+                    output_list[i+1][0] = 'ㅊ'
+            if output_list[i][2] == 'ㅌ':
+                if output_list[i+1][1] == 'ㅣ':
+                    output_list[i][2] = ''
+                    output_list[i+1][0] = 'ㅊ'
+
         #받침이 다음 글자 초성으로
         if output_list[i+1][0] == 'ㅇ':
+            if output_list[i][2] == 'ㄳ':
+                output_list[i][2] = 'ㄱ'
+                output_list[i+1][0] = 'ㅅ'
+            elif output_list[i][2] == 'ㄵ':
+                output_list[i][2] = 'ㄴ'
+                output_list[i+1][0] = 'ㅈ'
+            elif output_list[i][2] == 'ㄶ':
+                output_list[i][2] = 'ㄴ'
+                output_list[i+1][0] = 'ㅇ'
+            elif output_list[i][2] == 'ㄺ':
+                output_list[i][2] = 'ㄹ'
+                output_list[i+1][0] = 'ㄱ'
+            elif output_list[i][2] == 'ㄻ':
+                output_list[i][2] = 'ㄹ'
+                output_list[i+1][0] = 'ㅁ'
+            elif output_list[i][2] == 'ㄼ':
+                output_list[i][2] = 'ㄹ'
+                output_list[i+1][0] = 'ㅂ'
+            elif output_list[i][2] == 'ㄽ':
+                output_list[i][2] = 'ㄹ'
+                output_list[i+1][0] = 'ㅅ'
+            elif output_list[i][2] == 'ㄾ':
+                output_list[i][2] = 'ㄹ'
+                output_list[i+1][0] = 'ㅌ'
+            elif output_list[i][2] == 'ㄿ':
+                output_list[i][2] = 'ㄹ'
+                output_list[i+1][0] = 'ㅍ'
+            elif output_list[i][2] == 'ㅀ':
+                output_list[i][2] = 'ㄹ'
+                output_list[i+1][0] = 'ㅇ'
+            elif output_list[i][2] == 'ㅄ':
+                output_list[i][2] = 'ㅂ'
+                output_list[i+1][0] = 'ㅅ'
+            
             if output_list[i][2] == 'ㄱ':
                 output_list[i][2] = ''
                 output_list[i+1][0] = 'ㄱ'
@@ -171,25 +227,30 @@ def romanize(string, sign:bool=True, is_oe:bool=False, hyphen:bool=False):
             if output_list[i][2] == 'ㅆ':
                 output_list[i][2] = ''
                 output_list[i+1][0] = 'ㅆ'
+            if output_list[i][2] == 'ㅎ':
+                output_list[i][2] = ''
 
+        
+        #받침이 다음 글자 초성으로 (ㅎ)
+        if output_list[i+1][0] == 'ㅎ':
             if output_list[i][2] == 'ㄳ':
                 output_list[i][2] = 'ㄱ'
                 output_list[i+1][0] = 'ㅅ'
             elif output_list[i][2] == 'ㄵ':
                 output_list[i][2] = 'ㄴ'
-                output_list[i+1][0] = 'ㅈ'
+                output_list[i+1][0] = 'ㅊ'
             elif output_list[i][2] == 'ㄶ':
                 output_list[i][2] = 'ㄴ'
                 output_list[i+1][0] = 'ㅎ'
             elif output_list[i][2] == 'ㄺ':
                 output_list[i][2] = 'ㄹ'
-                output_list[i+1][0] = 'ㄱ'
+                output_list[i+1][0] = 'ㅋ'
             elif output_list[i][2] == 'ㄻ':
                 output_list[i][2] = 'ㄹ'
                 output_list[i+1][0] = 'ㅁ'
             elif output_list[i][2] == 'ㄼ':
                 output_list[i][2] = 'ㄹ'
-                output_list[i+1][0] = 'ㅂ'
+                output_list[i+1][0] = 'ㅍ'
             elif output_list[i][2] == 'ㄽ':
                 output_list[i][2] = 'ㄹ'
                 output_list[i+1][0] = 'ㅅ'
@@ -205,11 +266,6 @@ def romanize(string, sign:bool=True, is_oe:bool=False, hyphen:bool=False):
             elif output_list[i][2] == 'ㅄ':
                 output_list[i][2] = 'ㅂ'
                 output_list[i+1][0] = 'ㅅ'
-            elif output_list[i][2] == 'ㅎ':
-                output_list[i][2] = ''
-        
-        #받침이 다음 글자 초성으로 (ㅎ)
-        if output_list[i+1][0] == 'ㅎ':
             if output_list[i][2] == 'ㄱ':
                 output_list[i][2] = ''
                 output_list[i+1][0] = 'ㅋ'
@@ -243,41 +299,7 @@ def romanize(string, sign:bool=True, is_oe:bool=False, hyphen:bool=False):
             if output_list[i][2] == 'ㅆ':
                 output_list[i][2] = ''
                 output_list[i+1][0] = 'ㅌ'
-
-            if output_list[i][2] == 'ㄳ':
-                output_list[i][2] = 'ㄱ'
-                output_list[i+1][0] = 'ㅅ'
-            elif output_list[i][2] == 'ㄵ':
-                output_list[i][2] = 'ㄴ'
-                output_list[i+1][0] = 'ㅊ'
-            elif output_list[i][2] == 'ㄶ':
-                output_list[i][2] = 'ㄴ'
-                output_list[i+1][0] = 'ㅎ'
-            elif output_list[i][2] == 'ㄺ':
-                output_list[i][2] = 'ㄹ'
-                output_list[i+1][0] = 'ㅋ'
-            elif output_list[i][2] == 'ㄻ':
-                output_list[i][2] = 'ㄹ'
-                output_list[i+1][0] = 'ㅁ'
-            elif output_list[i][2] == 'ㄼ':
-                output_list[i][2] = 'ㄹ'
-                output_list[i+1][0] = 'ㅍ'
-            elif output_list[i][2] == 'ㄽ':
-                output_list[i][2] = 'ㄹ'
-                output_list[i+1][0] = 'ㅅ'
-            elif output_list[i][2] == 'ㄾ':
-                output_list[i][2] = 'ㄹ'
-                output_list[i+1][0] = 'ㅌ'
-            elif output_list[i][2] == 'ㄿ':
-                output_list[i][2] = 'ㄹ'
-                output_list[i+1][0] = 'ㅍ'
-            elif output_list[i][2] == 'ㅀ':
-                output_list[i][2] = 'ㄹ'
-                output_list[i+1][0] = 'ㅎ'
-            elif output_list[i][2] == 'ㅄ':
-                output_list[i][2] = 'ㅂ'
-                output_list[i+1][0] = 'ㅅ'
-            elif output_list[i][2] == 'ㅎ':
+            if output_list[i][2] == 'ㅎ':
                 output_list[i][2] = ''
         
 
